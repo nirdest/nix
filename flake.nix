@@ -6,7 +6,20 @@
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
+
+home-manager.lib.homeManagerConfiguration {
+  pkgs = inputs.nixpkgs.legacyPackages.${system};
+  home.username = "nirdest";
+  home.homeDirectory = "/Users/nirdest";
+
+  # Настройки home-manager
+  modules = [
+    ./home.nix # Отдельный файл для конфигурации пользователя
+  ];
+};
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
   let
