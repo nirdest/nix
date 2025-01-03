@@ -6,20 +6,7 @@
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
-
-home-manager.lib.homeManagerConfiguration {
-  pkgs = inputs.nixpkgs.legacyPackages.${system};
-  home.username = "nirdest";
-  home.homeDirectory = "/Users/nirdest";
-
-  # Настройки home-manager
-  modules = [
-    ./home.nix # Отдельный файл для конфигурации пользователя
-  ];
-};
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
   let
@@ -37,12 +24,6 @@ home-manager.lib.homeManagerConfiguration {
           pkgs.obsidian
           pkgs.tmux
         ];
-
-ansible		cryptography	liblinear	lua		oniguruma	python@3.12	telnet
-ca-certificates	helm		libssh		mpdecimal	openssl@3	readline	watch
-certifi		jq		libssh2		ncurses		pcre2		sqlite		xz
-cffi		kubernetes-cli	libyaml		nmap		pycparser	sshpass
-
 
       homebrew = {
         enable = true;
