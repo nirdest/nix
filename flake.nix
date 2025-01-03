@@ -38,10 +38,21 @@ home-manager.lib.homeManagerConfiguration {
           pkgs.tmux
         ];
 
+ansible		cryptography	liblinear	lua		oniguruma	python@3.12	telnet
+ca-certificates	helm		libssh		mpdecimal	openssl@3	readline	watch
+certifi		jq		libssh2		ncurses		pcre2		sqlite		xz
+cffi		kubernetes-cli	libyaml		nmap		pycparser	sshpass
+
+
       homebrew = {
         enable = true;
         brews = [
           "wget"
+          "ansible"
+          "helm"
+          "jq"
+          "kubernetes-cli"
+          "nmap"
         ];
         casks = [
    #       "hammerspoon"
@@ -49,15 +60,20 @@ home-manager.lib.homeManagerConfiguration {
           "iina"
    #       "the-unarchiver"
         ];
+
+https://apps.apple.com/kz/app/numbers/id409203825?mt=12
         masApps = {
           "telegram" = 747648890;
+          "numbers" = "409203825";
+          "pages" = "409201541";
+          "windows-app" = "1295203466";
+          "tailscale" = "1475387142";
+          "toggl" = "1291898086";
+          "hidden-bar" = "1452453066";
+          "xcode" = "497799835";
         };
         onActivation.cleanup = "zap";
       };
-
-#      fonts.packages = [
- #       (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  #    ];
 
       system.activationScripts.applications.text = let
         env = pkgs.buildEnv {
@@ -72,7 +88,7 @@ home-manager.lib.homeManagerConfiguration {
           rm -rf /Applications/Nix\ Apps
           mkdir -p /Applications/Nix\ Apps
           find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-          while read src; do
+          while read -r src; do
             app_name=$(basename "$src")
             echo "copying $src" >&2
             ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
@@ -83,7 +99,7 @@ home-manager.lib.homeManagerConfiguration {
         dock.autohide  = true;
         dock.largesize = 64;
         dock.persistent-apps = [
-          "${pkgs.alacritty}/Applications/Alacritty.app"
+#          "${pkgs.alacritty}/Applications/Alacritty.app"
           "/Applications/Firefox.app"
           "${pkgs.obsidian}/Applications/Obsidian.app"
           "/System/Applications/Mail.app"
